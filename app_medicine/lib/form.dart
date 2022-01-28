@@ -74,7 +74,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   }
 
   String dropdownValueQ = 'Item 1';
-  var itemsQ = ['mg', 'ml', 'Item 3'];
+  var itemsQ = ['Item 1', 'Item 2', 'Item 3'];
 
   String dropdownValueF = 'Item 1';
   var itemsF = ['Item 1', 'Item 2', 'Item3'];
