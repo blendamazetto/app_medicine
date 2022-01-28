@@ -2,82 +2,86 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:intl/intl.dart';
-import 'pallete.dart';
-import 'medicamento.dart';
-import 'homepage.dart';
+import 'utils/pallete.dart';
+import 'data/medicamento.dart';
+import 'pages/lista_medicamentos_page.dart';
 import 'form.dart';
-import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
+import 'package:bottom_bar/bottom_bar.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MyNavigation());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: MyNavigation());
   }
 }
 
 class MyNavigation extends StatefulWidget {
+  const MyNavigation({Key? key}) : super(key: key);
+
+  @override
   State<StatefulWidget> createState() {
     return MyNavigationState();
   }
 }
 
 class MyNavigationState extends State<MyNavigation> {
-  var iconList = <IconData>[
-    Icons.person,
-    Icons.calendar_today,
-    Icons.bar_chart,
-    Icons.settings
-  ];
-  var _bottomNavIndex = 0;
+  final _pageController = PageController();
 
   int _currentIndex = 0;
   //List<Widget> _pages = List.filled(1, ListaMedicamentos());
-  var _pages = [ListaMedicamentos()];
+  final _pages = [
+    Container(color: Colors.blue),
+    ListaMedicamentos(),
+    Container(color: Colors.red),
+    Container(color: Colors.greenAccent.shade700),
+  ];
 
-  void _onTap(int index) {
-    setState(() {
-      _currentIndex = index;
-    });
+  _onPageChanged(int index) {
+    setState(() => _currentIndex = index);
   }
 
-  _getPage(int page) {
-    switch (page) {
-      case 0:
-        break;
-
-      case 1:
-        return ListaMedicamentos();
-
-      case 2:
-        break;
-
-      case 3:
-        break;
-    }
+  _onTap(int index) {
+    _pageController.jumpToPage(index);
+    setState(() => _currentIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.add),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      bottomNavigationBar: AnimatedBottomNavigationBar(
-        icons: iconList,
-        activeIndex: _currentIndex,
-        gapLocation: GapLocation.center,
-        notchSmoothness: NotchSmoothness.softEdge,
-        leftCornerRadius: 32,
-        rightCornerRadius: 32,
+      bottomNavigationBar: BottomBar(
+        selectedIndex: _currentIndex,
+        items: <BottomBarItem>[
+          BottomBarItem(
+            icon: const Icon(Icons.home),
+            title: const Text('Início'),
+            activeColor: Palette.pinkToWhite,
+          ),
+          BottomBarItem(
+            icon: const Icon(Icons.medication),
+            title: const Text('Medicações'),
+            activeColor: Palette.pinkToWhite,
+          ),
+          BottomBarItem(
+            icon: const Icon(Icons.bar_chart),
+            title: const Text('Estatísticas'),
+            activeColor: Palette.pinkToWhite,
+          ),
+          BottomBarItem(
+            icon: const Icon(Icons.settings),
+            title: const Text('Configurações'),
+            activeColor: Palette.pinkToWhite,
+          ),
+        ],
         onTap: _onTap,
-        //other params
       ),
-      body: Container(
-        child: _getPage(_currentIndex),
+      body: PageView(
+        controller: _pageController,
+        children: _pages,
+        onPageChanged: _onPageChanged,
       ),
     );
   }

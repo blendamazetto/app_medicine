@@ -1,4 +1,3 @@
-
 class Medicamento {
   final String nome;
   final String descricao;
@@ -7,7 +6,8 @@ class Medicamento {
   final String tempo;
   final String data;
 
-  Medicamento(this.nome, this.descricao, this.quantidade, this.frequencia, this.tempo, this.data);
+  Medicamento(this.nome, this.descricao, this.quantidade, this.frequencia,
+      this.tempo, this.data);
 
   @override
   String toString() {

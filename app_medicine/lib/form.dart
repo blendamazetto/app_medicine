@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:intl/intl.dart';
-import 'pallete.dart';
-import 'medicamento.dart';
-
+import 'utils/pallete.dart';
+import 'data/medicamento.dart';
 
 class MyFormPage extends StatefulWidget {
   const MyFormPage({Key? key}) : super(key: key);
@@ -75,7 +74,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   }
 
   String dropdownValueQ = 'Item 1';
-  var itemsQ = ['Item 1', 'Item 2', 'Item 3'];
+  var itemsQ = ['mg', 'ml', 'Item 3'];
 
   String dropdownValueF = 'Item 1';
   var itemsF = ['Item 1', 'Item 2', 'Item3'];
@@ -89,7 +88,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 38),
           child: TextField(
             controller: nameinput,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 borderSide: BorderSide.none,
@@ -124,7 +123,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 borderSide: BorderSide.none,
               ),
               contentPadding:
-              EdgeInsetsDirectional.only(bottom: 0, start: 10, top: 50),
+                  EdgeInsetsDirectional.only(bottom: 0, start: 10, top: 50),
               hintStyle: TextStyle(fontSize: 14),
               hintText: 'Enter medicine description',
               labelStyle: TextStyle(
@@ -269,90 +268,90 @@ class _MyCustomFormState extends State<MyCustomForm> {
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: IntrinsicHeight(
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Expanded(
-                    child: Column(children: [
-                      TextField(
-                        controller: frequencyinput,
-                        keyboardType: TextInputType.number,
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        maxLength: 2,
-                        decoration: const InputDecoration(
-                          counterText: "",
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(30)),
-                            borderSide: BorderSide.none,
-                          ),
-                          labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Color(0xff666666),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.always,
-                          labelText: 'Frequency\n\n',
-                          hintStyle: TextStyle(fontSize: 14),
-                          hintText: 'Enter frequency',
-                          contentPadding: EdgeInsetsDirectional.only(
-                              bottom: 10, start: 10, top: 0, end: 0),
-                          alignLabelWithHint: false,
-                          fillColor: Color(0xffe6e6e6),
-                          filled: true,
-                        ),
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Expanded(
+                child: Column(children: [
+                  TextField(
+                    controller: frequencyinput,
+                    keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
+                    maxLength: 2,
+                    decoration: const InputDecoration(
+                      counterText: "",
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderSide: BorderSide.none,
                       ),
-                    ]),
-                  ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 5, right: 20),
-                      child: const Text(
-                        'times',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xff666666),
-                            fontSize: 14),
+                      labelStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                        color: Color(0xff666666),
                       ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      labelText: 'Frequency\n\n',
+                      hintStyle: TextStyle(fontSize: 14),
+                      hintText: 'Enter frequency',
+                      contentPadding: EdgeInsetsDirectional.only(
+                          bottom: 10, start: 10, top: 0, end: 0),
+                      alignLabelWithHint: false,
+                      fillColor: Color(0xffe6e6e6),
+                      filled: true,
                     ),
                   ),
-                  Expanded(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          color: const Color(0xffef6f86),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: DropdownButton(
-                        style: const TextStyle(
-                          fontFamily: 'Montserrat',
-                          fontSize: 14,
-                          color: Color(0xffffffff),
-                        ),
-                        underline: Container(
-                          height: 0,
-                        ),
-                        dropdownColor: Palette.pinkToWhite,
-                        isExpanded: true,
-                        value: dropdownValueF,
-                        icon: const Icon(Icons.keyboard_arrow_down),
-                        iconEnabledColor: const Color(0xffffffff),
-                        borderRadius: BorderRadius.circular(30),
-                        items: itemsF.map((String itemsF) {
-                          return DropdownMenuItem(
-                            value: itemsF,
-                            child: Center(child: Text(itemsF)),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            dropdownValueF = newValue!;
-                          });
-                        },
-                      ),
-                    ),
+                ]),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Container(
+                  margin: const EdgeInsets.only(left: 5, right: 20),
+                  child: const Text(
+                    'times',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xff666666),
+                        fontSize: 14),
                   ),
-                ],
-              )),
+                ),
+              ),
+              Expanded(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                      color: const Color(0xffef6f86),
+                      borderRadius: BorderRadius.circular(30)),
+                  child: DropdownButton(
+                    style: const TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 14,
+                      color: Color(0xffffffff),
+                    ),
+                    underline: Container(
+                      height: 0,
+                    ),
+                    dropdownColor: Palette.pinkToWhite,
+                    isExpanded: true,
+                    value: dropdownValueF,
+                    icon: const Icon(Icons.keyboard_arrow_down),
+                    iconEnabledColor: const Color(0xffffffff),
+                    borderRadius: BorderRadius.circular(30),
+                    items: itemsF.map((String itemsF) {
+                      return DropdownMenuItem(
+                        value: itemsF,
+                        child: Center(child: Text(itemsF)),
+                      );
+                    }).toList(),
+                    onChanged: (String? newValue) {
+                      setState(() {
+                        dropdownValueF = newValue!;
+                      });
+                    },
+                  ),
+                ),
+              ),
+            ],
+          )),
         ),
 
         //TIME AND DATE FIELDS
@@ -389,7 +388,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                         filled: true,
                       ),
                       readOnly:
-                      true, //set it true, so that user will not able to edit text
+                          true, //set it true, so that user will not able to edit text
                       onTap: () async {
                         TimeOfDay? pickedTime = await showTimePicker(
                           initialTime: TimeOfDay.now(),
@@ -399,7 +398,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                           DateTime parsedTime = DateFormat.jm()
                               .parse(pickedTime.format(context).toString());
                           String formattedTime =
-                          DateFormat('HH:mm:ss').format(parsedTime);
+                              DateFormat('HH:mm:ss').format(parsedTime);
                           setState(() {
                             timeinput.text = formattedTime;
                           });
@@ -414,11 +413,11 @@ class _MyCustomFormState extends State<MyCustomForm> {
                           bottom: 10, start: 10, top: 0, end: 0),
                       child: TextField(
                         controller:
-                        dateinput, //editing controller of this TextField
+                            dateinput, //editing controller of this TextField
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius:
-                              BorderRadius.all(Radius.circular(30)),
+                                  BorderRadius.all(Radius.circular(30)),
                               borderSide: BorderSide.none,
                             ),
                             labelStyle: TextStyle(
@@ -436,7 +435,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                             filled: true,
                             labelText: "Date\n\n"),
                         readOnly:
-                        true, //set it true, so that user will not able to edit text
+                            true, //set it true, so that user will not able to edit text
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
                               context: context,
@@ -447,7 +446,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
                           if (pickedDate != null) {
                             String formattedDate =
-                            DateFormat('yyyy-MM-dd').format(pickedDate);
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
                             setState(() {
                               dateinput.text = formattedDate;
                             });
@@ -471,14 +470,15 @@ class _MyCustomFormState extends State<MyCustomForm> {
                       borderRadius: BorderRadius.circular(30)),
                   primary: const Color(0xffef6f86),
                   padding:
-                  const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   textStyle:
-                  const TextStyle(fontSize: 16, fontFamily: 'Montserrat')),
+                      const TextStyle(fontSize: 16, fontFamily: 'Montserrat')),
               onPressed: () => criaMedicamento(context),
             )),
       ],
     );
   }
+
   void criaMedicamento(BuildContext context) {
     final String nome = nameinput.text;
     final String descricao = descinput.text;
@@ -487,9 +487,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
     final String tempo = timeinput.text;
     final String data = dateinput.text;
 
-    if (nome != "" && descricao != "" && quantidade != null && frequencia != null && tempo != "" && data != "")
-    {
-      final medicamentoCriado = Medicamento(nome, descricao, quantidade, frequencia, tempo, data);
+    if (nome != "" &&
+        descricao != "" &&
+        quantidade != null &&
+        frequencia != null &&
+        tempo != "" &&
+        data != "") {
+      final medicamentoCriado =
+          Medicamento(nome, descricao, quantidade, frequencia, tempo, data);
       Navigator.pop(context, medicamentoCriado);
     }
   }
