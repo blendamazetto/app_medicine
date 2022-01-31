@@ -1,21 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:carousel_pro/carousel_pro.dart';
-import 'package:intl/intl.dart';
 import 'utils/pallete.dart';
-import 'data/medicamento.dart';
 import 'pages/lista_medicamentos_page.dart';
-import 'form.dart';
 import 'package:bottom_bar/bottom_bar.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MyNavigation());
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const MyNavigation(),
+      title: 'Adicionar Medicamento',
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [Locale('pt', 'BR')],
+      theme: ThemeData(
+        primarySwatch: Palette.pinkToWhite,
+        fontFamily: 'Montserrat',
+        backgroundColor: const Color(0xffe5e5e5),
+      ),
+    );
   }
 }
 
@@ -35,7 +45,7 @@ class MyNavigationState extends State<MyNavigation> {
   //List<Widget> _pages = List.filled(1, ListaMedicamentos());
   final _pages = [
     Container(color: Colors.blue),
-    ListaMedicamentos(),
+    const ListaMedicamentos(),
     Container(color: Colors.red),
     Container(color: Colors.greenAccent.shade700),
   ];

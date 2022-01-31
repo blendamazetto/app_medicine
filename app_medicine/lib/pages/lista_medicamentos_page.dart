@@ -19,7 +19,7 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
   onAddMedicamento() {
     final Future future =
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return MyFormPage();
+      return const MyFormPage();
     }));
 
     future.then((medicamentoRecebido) {
@@ -48,6 +48,7 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
         padding: const EdgeInsets.all(10),
         child: FloatingActionButton(
           child: const Icon(Icons.add),
+          foregroundColor: Colors.white,
           onPressed: onAddMedicamento,
           backgroundColor: Palette.pinkToWhite,
           elevation: 1,
@@ -60,7 +61,7 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
 class ItemMedicamento extends StatelessWidget {
   final Medicamento _medicamento;
 
-  ItemMedicamento(this._medicamento);
+  const ItemMedicamento(this._medicamento, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

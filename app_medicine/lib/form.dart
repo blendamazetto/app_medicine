@@ -20,19 +20,19 @@ class _MyFormPageState extends State<MyFormPage> {
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Palette.pinkToWhite,
         ),
-        toolbarHeight: 140,
+        toolbarHeight: 110,
         title: RichText(
           textAlign: TextAlign.left,
           text: const TextSpan(
-            text: 'Add New Medicine',
+            text: 'Adicionar Medicamento',
             style: TextStyle(
-                fontSize: 26,
+                fontSize: 24,
                 fontFamily: 'Montserrat',
                 height: 1.5,
                 color: Colors.white),
             children: <TextSpan>[
               TextSpan(
-                text: '\nAnd set the infos',
+                text: '\nE definir suas informações',
                 style: TextStyle(
                   fontSize: 14,
                 ),
@@ -66,18 +66,39 @@ class _MyCustomFormState extends State<MyCustomForm> {
   void initState() {
     timeinput.text = "";
     dateinput.text = "";
-    frequencyinput.text = "1";
+    frequencyinput.text = "";
     nameinput.text = "";
     descinput.text = "";
     quantinput.text = "";
     super.initState();
   }
 
-  String dropdownValueQ = 'Item 1';
-  var itemsQ = ['Item 1', 'Item 2', 'Item 3'];
+  String dropdownValueQ = 'Colher(es) chá';
+  var itemsQ = [
+    'Colher(es) chá',
+    'Colher(es) sobremesa',
+    'Colher(es) sopa',
+    'Grama(s) - g',
+    'Gota(s)',
+    'Miligrama(s) - mg',
+    'Mililitro(s) - ml',
+    'Litro(s) - L',
+    'Pedaço(s)',
+    'Unidade(s)'
+  ];
 
-  String dropdownValueF = 'Item 1';
-  var itemsF = ['Item 1', 'Item 2', 'Item3'];
+  String dropdownValueF = 'Anualmente';
+  //Por personalizado (intervalos)
+  var itemsF = [
+    'Anualmente',
+    'Bimestralmente',
+    'Diariamente',
+    'Mensalmente',
+    'Quinzenalmente',
+    'Semanalmente',
+    'Semestralmente',
+    'Trimestralmente'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -90,17 +111,18 @@ class _MyCustomFormState extends State<MyCustomForm> {
             controller: nameinput,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
                 borderSide: BorderSide.none,
               ),
               hintStyle: TextStyle(fontSize: 14),
-              hintText: 'Enter medicine name',
+              hintText: 'Insira o nome do medicamento',
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xff666666)),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                //color: Color(0xff666666)
+              ),
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: 'Medicine Name\n\n',
+              labelText: 'Nome\n\n',
               alignLabelWithHint: false,
               fillColor: Color(0xffe6e6e6),
               filled: true,
@@ -117,21 +139,20 @@ class _MyCustomFormState extends State<MyCustomForm> {
             keyboardType: TextInputType.multiline,
             maxLines: 3,
             maxLength: 300,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(30)),
+                borderRadius: BorderRadius.all(Radius.circular(20)),
                 borderSide: BorderSide.none,
               ),
-              contentPadding:
-                  EdgeInsetsDirectional.only(bottom: 0, start: 10, top: 50),
               hintStyle: TextStyle(fontSize: 14),
-              hintText: 'Enter medicine description',
+              hintText: 'Insira a descrição do medicamento',
               labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Color(0xff666666)),
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+                //color: Color(0xff666666)
+              ),
               floatingLabelBehavior: FloatingLabelBehavior.always,
-              labelText: 'Description\n\n',
+              labelText: 'Descrição\n\n',
               alignLabelWithHint: false,
               fillColor: Color(0xffe6e6e6),
               filled: true,
@@ -146,44 +167,48 @@ class _MyCustomFormState extends State<MyCustomForm> {
           child: Container(
             margin: const EdgeInsets.only(left: 30, right: 20.0),
             child: const Text(
-              'Medicine Type',
+              'Tipo do Medicamento',
               style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xff666666),
-                  fontSize: 10.5),
+                fontWeight: FontWeight.bold,
+                fontSize: 10.5,
+                color: Color(0xff666666),
+              ),
             ),
           ),
         ),
         Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), 
           child: SizedBox(
             height: 130.0,
             width: double.maxFinite,
             child: Carousel(
               images: const [
-                NetworkImage(
-                    'https://images.unsplash.com/photo-1573883429746-084be9b5cfca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGlsbHN8ZW58MHx8MHx8&w=1000&q=80'),
-                NetworkImage(
-                    'https://images.unsplash.com/photo-1573883429746-084be9b5cfca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGlsbHN8ZW58MHx8MHx8&w=1000&q=80'),
-                ExactAssetImage("assets/images/LaunchImage.jpg")
+                ExactAssetImage('assets/images/capsule.png'),
+                ExactAssetImage('assets/images/powder.png'),
+                ExactAssetImage('assets/images/drops.png'),
+                ExactAssetImage('assets/images/syringe.png'),
+                ExactAssetImage('assets/images/liquid.png'),
+                ExactAssetImage('assets/images/tablet.png'),
+                ExactAssetImage('assets/images/pills.png'),
+                ExactAssetImage('assets/images/ointment.png'),
+                ExactAssetImage('assets/images/spray.png'),
               ],
-              dotSize: 4.0,
+              dotSize: 5.0,
               dotSpacing: 15.0,
-              dotColor: Palette.blackToWhite.shade900,
               indicatorBgPadding: 5.0,
-              dotBgColor: Palette.pinkToWhite,
-              borderRadius: true,
+              dotIncreasedColor: Palette.pinkToWhite,
+              dotColor: Palette.blackToWhite.shade700,
+              dotBgColor: Colors.transparent,
               autoplay: false,
-              //radius: const Radius.circular(30),
+              boxFit: BoxFit.contain,
             ),
           ),
         ),
 
         //QUANTITY FIELD + DROPDOWN BUTTON
-
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -193,26 +218,24 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     TextField(
                       controller: quantinput,
                       keyboardType: TextInputType.number,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                      ],
                       maxLength: 4,
                       decoration: const InputDecoration(
                         counterText: "",
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide: BorderSide.none,
                         ),
                         hintStyle: TextStyle(fontSize: 14),
-                        hintText: 'Enter quantity',
+                        hintText: 'Insira a quantidade',
                         labelStyle: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 14,
-                            color: Color(0xff666666)),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 14,
+                          //color: Color(0xff666666)
+                        ),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         contentPadding: EdgeInsetsDirectional.only(
                             bottom: 10, start: 10, top: 0, end: 0),
-                        labelText: 'Quantity\n\n',
+                        labelText: 'Quantidade\n\n',
                         alignLabelWithHint: false,
                         fillColor: Color(0xffe6e6e6),
                         filled: true,
@@ -227,18 +250,18 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           color: const Color(0xffef6f86),
-                          borderRadius: BorderRadius.circular(30)),
+                          borderRadius: BorderRadius.circular(20)),
                       child: DropdownButton(
                         style: const TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 14,
-                          color: Color(0xffffffff),
+                          //color: Color(0xffffffff),
                         ),
                         underline: Container(
                           height: 0,
                         ),
                         dropdownColor: Palette.pinkToWhite,
-                        borderRadius: BorderRadius.circular(30),
+                        borderRadius: BorderRadius.circular(20),
                         isExpanded: true,
                         value: dropdownValueQ,
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -282,18 +305,18 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     decoration: const InputDecoration(
                       counterText: "",
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
                         borderSide: BorderSide.none,
                       ),
                       labelStyle: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
-                        color: Color(0xff666666),
+                        //color: Color(0xff666666),
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
-                      labelText: 'Frequency\n\n',
+                      labelText: 'Frequência\n\n',
                       hintStyle: TextStyle(fontSize: 14),
-                      hintText: 'Enter frequency',
+                      hintText: 'Insira a frequência',
                       contentPadding: EdgeInsetsDirectional.only(
                           bottom: 10, start: 10, top: 0, end: 0),
                       alignLabelWithHint: false,
@@ -306,13 +329,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Container(
-                  margin: const EdgeInsets.only(left: 5, right: 20),
+                  margin: const EdgeInsets.only(left: 5, right: 10),
                   child: const Text(
-                    'times',
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff666666),
-                        fontSize: 14),
+                    'vezes',
+                    style: TextStyle(color: Color(0xff666666), fontSize: 14),
                   ),
                 ),
               ),
@@ -320,7 +340,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                       color: const Color(0xffef6f86),
-                      borderRadius: BorderRadius.circular(30)),
+                      borderRadius: BorderRadius.circular(20)),
                   child: DropdownButton(
                     style: const TextStyle(
                       fontFamily: 'Montserrat',
@@ -335,7 +355,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     value: dropdownValueF,
                     icon: const Icon(Icons.keyboard_arrow_down),
                     iconEnabledColor: const Color(0xffffffff),
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(20),
                     items: itemsF.map((String itemsF) {
                       return DropdownMenuItem(
                         value: itemsF,
@@ -355,7 +375,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
         ),
 
         //TIME AND DATE FIELDS
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
           child: IntrinsicHeight(
@@ -367,20 +386,20 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     TextField(
                       controller: timeinput,
                       decoration: const InputDecoration(
-                        labelText: "Time\n\n",
+                        labelText: "Horário\n\n",
                         counterText: "",
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(30)),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
                           borderSide: BorderSide.none,
                         ),
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
-                          color: Color(0xff666666),
+                          //color: Color(0xff666666),
                         ),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                         hintStyle: TextStyle(fontSize: 14),
-                        hintText: 'Enter time',
+                        hintText: 'Insira o horário',
                         contentPadding: EdgeInsetsDirectional.only(
                             bottom: 10, start: 10, top: 0, end: 0),
                         alignLabelWithHint: false,
@@ -393,12 +412,19 @@ class _MyCustomFormState extends State<MyCustomForm> {
                         TimeOfDay? pickedTime = await showTimePicker(
                           initialTime: TimeOfDay.now(),
                           context: context,
+                          builder: (BuildContext context, Widget? child) {
+                            return MediaQuery(
+                              data: MediaQuery.of(context)
+                                  .copyWith(alwaysUse24HourFormat: true),
+                              child: child!,
+                            );
+                          },
                         );
                         if (pickedTime != null) {
-                          DateTime parsedTime = DateFormat.jm()
+                          DateTime parsedTime = DateFormat('HH:mm', 'pt_Br')
                               .parse(pickedTime.format(context).toString());
                           String formattedTime =
-                              DateFormat('HH:mm:ss').format(parsedTime);
+                              DateFormat('HH:mm', 'pt_Br').format(parsedTime);
                           setState(() {
                             timeinput.text = formattedTime;
                           });
@@ -417,36 +443,40 @@ class _MyCustomFormState extends State<MyCustomForm> {
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(30)),
+                                  BorderRadius.all(Radius.circular(20)),
                               borderSide: BorderSide.none,
                             ),
                             labelStyle: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 14,
-                              color: Color(0xff666666),
+                              //color: Color(0xff666666),
                             ),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             hintStyle: TextStyle(fontSize: 14),
-                            hintText: 'Enter date',
+                            hintText: 'Insira a data',
                             contentPadding: EdgeInsetsDirectional.only(
                                 bottom: 10, start: 10, top: 0, end: 0),
                             alignLabelWithHint: false,
                             fillColor: Color(0xffe6e6e6),
                             filled: true,
-                            labelText: "Date\n\n"),
+                            labelText: "Data\n\n"),
                         readOnly:
                             true, //set it true, so that user will not able to edit text
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
                               context: context,
+                              locale: const Locale("pt", "BR"),
                               initialDate: DateTime.now(),
-                              firstDate: DateTime(
-                                  2000), //DateTime.now() - not to allow to choose before today.
-                              lastDate: DateTime(2101));
+                              firstDate: DateTime
+                                  .now(), //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2100));
 
                           if (pickedDate != null) {
                             String formattedDate =
-                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                                DateFormat('dd/MM/yyyy', 'pt_Br')
+                                    .format(pickedDate);
+                            //DateFormat(DateFormat.YEAR_MONTH_DAY, 'pt_Br').format(pickedDate);
+                            //DateFormat('dd-MM-yyyy').format(pickedDate);
                             setState(() {
                               dateinput.text = formattedDate;
                             });
@@ -464,10 +494,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsetsDirectional.only(
                 start: 10, top: 0, end: 10, bottom: 10),
             child: ElevatedButton(
-              child: const Text('Add New Medicine'),
+              child: const Text('Adicionar Medicamento'),
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
+                      borderRadius: BorderRadius.circular(20)),
                   primary: const Color(0xffef6f86),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
