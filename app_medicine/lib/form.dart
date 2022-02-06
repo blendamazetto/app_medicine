@@ -100,6 +100,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
     'Trimestralmente'
   ];
 
+  int carouselIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -202,6 +204,11 @@ class _MyCustomFormState extends State<MyCustomForm> {
               dotBgColor: Colors.transparent,
               autoplay: false,
               boxFit: BoxFit.contain,
+              onImageChange: (index, reason) {
+                setState(() {
+                  carouselIndex = index;
+                });
+              },
             ),
           ),
         ),
@@ -516,6 +523,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
     final int? frequencia = int.tryParse(frequencyinput.text);
     final String tempo = timeinput.text;
     final String data = dateinput.text;
+    final String valueQ = dropdownValueQ;
+    final String valueF = dropdownValueF;
+    final int tipoMed = carouselIndex;
 
     if (nome != "" &&
         descricao != "" &&
@@ -524,7 +534,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
         tempo != "" &&
         data != "") {
       final medicamentoCriado =
-          Medicamento(nome, descricao, quantidade, frequencia, tempo, data);
+          Medicamento(nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF, tipoMed);
       Navigator.pop(context, medicamentoCriado);
     }
   }
