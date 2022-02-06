@@ -204,11 +204,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
               dotBgColor: Colors.transparent,
               autoplay: false,
               boxFit: BoxFit.contain,
-              onImageChange: (index, reason) {
-                setState(() {
-                  carouselIndex = index;
-                });
-              },
             ),
           ),
         ),
@@ -525,7 +520,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
     final String data = dateinput.text;
     final String valueQ = dropdownValueQ;
     final String valueF = dropdownValueF;
-    final int tipoMed = carouselIndex;
 
     if (nome != "" &&
         descricao != "" &&
@@ -534,7 +528,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
         tempo != "" &&
         data != "") {
       final medicamentoCriado =
-          Medicamento(nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF, tipoMed);
+          Medicamento(nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF);
       Navigator.pop(context, medicamentoCriado);
     }
   }

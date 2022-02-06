@@ -14,7 +14,7 @@ class ListaMedicamentos extends StatefulWidget {
 
 class ListaMedicamentosState extends State<ListaMedicamentos> {
   final List<Medicamento> _medicamentos =
-      List.filled(0, Medicamento('a', 'a', 1.0, 1, 'a', 'a'), growable: true);
+      List.filled(0, Medicamento('a', 'a', 1.0, 1, 'a', 'a', 'a', 'a'), growable: true);
 
   onAddMedicamento() {
     final Future future =
@@ -65,10 +65,79 @@ class ItemMedicamento extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 3, horizontal: 10),
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20)
+        ),
+        color: Palette.pinkToWhite,
         child: ListTile(
-      title: Text(_medicamento.nome.toString()),
-      subtitle: Text(_medicamento.descricao.toString()),
-    ));
+          contentPadding: const EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 3),
+          title: Text(
+            _medicamento.nome.toString(),
+            style: TextStyle(
+              fontSize: 22,
+              fontFamily: 'Montserrat',
+              fontWeight: FontWeight.bold,
+              color: Palette.blackToWhite[300]
+            )
+          ),
+          subtitle: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'Montserrat',
+                    color: Colors.white
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(text: _medicamento.descricao.toString()),
+                    TextSpan(text: '\n${_medicamento.quantidade.toString()} '),
+                    TextSpan(text: _medicamento.valueQ.toString(), style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 17)),
+                    TextSpan(text: '\n${_medicamento.frequencia.toString()} vez(es)'),
+                    TextSpan(text: '/${_medicamento.valueF.toString()}', style: const TextStyle(fontWeight: FontWeight.bold)),
+                    const TextSpan(text: '\nHorário: ', style: TextStyle(fontWeight: FontWeight.bold)),
+                    TextSpan(text: _medicamento.tempo.toString()),
+                    TextSpan(text: '\n${_medicamento.data.toString()}\n',),
+                  ]
+                )
+              ),
+            Container(
+              alignment: Alignment.bottomCenter,
+              width: 250,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Palette.blackToWhite[900]),
+                    ),
+                    child: const Text(
+                      'EDITAR',
+                      style: TextStyle(color: Color(0xffef6f86))
+                  )),
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Palette.blackToWhite[900]),
+                    ),
+                    child: const Text(
+                      'EXCLUIR',
+                      style: TextStyle(color: Color(0xffef6f86))
+                  )),
+                ],
+              ),
+            )
+            ],
+          ),
+          
+        )
+      ),
+    );
   }
 }
