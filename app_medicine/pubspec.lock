@@ -22,13 +22,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.0+1"
-  carousel_pro:
+  card_swiper:
     dependency: "direct main"
     description:
-      name: carousel_pro
+      name: card_swiper
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.0.0"
+    version: "2.0.3"
   characters:
     dependency: transitive
     description:
