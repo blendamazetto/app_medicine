@@ -63,6 +63,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   TextEditingController descinput = TextEditingController();
   TextEditingController quantinput = TextEditingController();
 
+
   @override
   void initState() {
     timeinput.text = "";
@@ -170,8 +171,37 @@ class _MyCustomFormState extends State<MyCustomForm> {
                       activeColor: Color(0xffef6f86),
                       size: 10.0,
                       activeSize: 10.0)),
+              duration: 500,
+              onTap: (index) {
+                print(index);
+                switch(index){
+                  case 0:
+                    tipo = "Em pó";
+                    break;
+                  case 1: 
+                    tipo = "Gotas";
+                    break;
+                  case 2:
+                    tipo = "Injeção";
+                    break;
+                  case 3:
+                    tipo = "Líquido";
+                    break;
+                  case 4:
+                    tipo = "Pastilha";
+                    break;
+                  case 5:
+                    tipo = "Pílula";
+                    break;
+                  case 6:
+                    tipo = "Pomada";
+                    break;
+                  case 7:
+                    tipo = "Spray";
+                    break;
+                }
+              },
               control: const SwiperControl(),
-              
             ),
           ),
         ),
@@ -494,9 +524,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
         quantidade != null &&
         frequencia != null &&
         tempo != "" &&
-        data != "") {
+        data != "" && 
+        tipo != "") {
       final medicamentoCriado = Medicamento(
-          nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF);
+          nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF, tipo);
       Navigator.pop(context, medicamentoCriado);
     }
   }

@@ -37,3 +37,5 @@ List<String> images = [
 ];
 
 int carouselIndex = 1;
+
+String tipo = "";
