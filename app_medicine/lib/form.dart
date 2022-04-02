@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:carousel_pro/carousel_pro.dart';
+import 'package:card_swiper/card_swiper.dart';
 import 'package:intl/intl.dart';
 import 'utils/pallete.dart';
+import 'utils/config.dart';
 import 'data/medicamento.dart';
 
 class MyFormPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _MyFormPageState extends State<MyFormPage> {
                 color: Colors.white),
             children: <TextSpan>[
               TextSpan(
-                text: '\nE definir suas informações',
+                text: '\nDefina as informações',
                 style: TextStyle(
                   fontSize: 14,
                 ),
@@ -62,6 +63,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   TextEditingController descinput = TextEditingController();
   TextEditingController quantinput = TextEditingController();
 
+
   @override
   void initState() {
     timeinput.text = "";
@@ -72,35 +74,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
     quantinput.text = "";
     super.initState();
   }
-
-  String dropdownValueQ = 'Colher(es) chá';
-  var itemsQ = [
-    'Colher(es) chá',
-    'Colher(es) sobremesa',
-    'Colher(es) sopa',
-    'Grama(s) - g',
-    'Gota(s)',
-    'Miligrama(s) - mg',
-    'Mililitro(s) - ml',
-    'Litro(s) - L',
-    'Pedaço(s)',
-    'Unidade(s)'
-  ];
-
-  String dropdownValueF = 'Anualmente';
-  //Por personalizado (intervalos)
-  var itemsF = [
-    'Anualmente',
-    'Bimestralmente',
-    'Diariamente',
-    'Mensalmente',
-    'Quinzenalmente',
-    'Semanalmente',
-    'Semestralmente',
-    'Trimestralmente'
-  ];
-
-  int carouselIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -180,30 +153,55 @@ class _MyCustomFormState extends State<MyCustomForm> {
         ),
         Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5), 
+          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: SizedBox(
             height: 130.0,
             width: double.maxFinite,
-            child: Carousel(
-              images: const [
-                ExactAssetImage('assets/images/capsule.png'),
-                ExactAssetImage('assets/images/powder.png'),
-                ExactAssetImage('assets/images/drops.png'),
-                ExactAssetImage('assets/images/syringe.png'),
-                ExactAssetImage('assets/images/liquid.png'),
-                ExactAssetImage('assets/images/tablet.png'),
-                ExactAssetImage('assets/images/pills.png'),
-                ExactAssetImage('assets/images/ointment.png'),
-                ExactAssetImage('assets/images/spray.png'),
-              ],
-              dotSize: 5.0,
-              dotSpacing: 15.0,
-              indicatorBgPadding: 5.0,
-              dotIncreasedColor: Palette.pinkToWhite,
-              dotColor: Palette.blackToWhite.shade700,
-              dotBgColor: Colors.transparent,
-              autoplay: false,
-              boxFit: BoxFit.contain,
+            child: Swiper(
+              itemBuilder: (BuildContext context, int index) {
+                return Image.asset(
+                  images[index],
+                );
+              },
+              itemCount: images.length,
+              pagination: const SwiperPagination(
+                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
+                  builder: DotSwiperPaginationBuilder(
+                      color: Color(0xffe6e6e6),
+                      activeColor: Color(0xffef6f86),
+                      size: 10.0,
+                      activeSize: 10.0)),
+              duration: 500,
+              onTap: (index) {
+                print(index);
+                switch(index){
+                  case 0:
+                    tipo = "Em pó";
+                    break;
+                  case 1: 
+                    tipo = "Gotas";
+                    break;
+                  case 2:
+                    tipo = "Injeção";
+                    break;
+                  case 3:
+                    tipo = "Líquido";
+                    break;
+                  case 4:
+                    tipo = "Pastilha";
+                    break;
+                  case 5:
+                    tipo = "Pílula";
+                    break;
+                  case 6:
+                    tipo = "Pomada";
+                    break;
+                  case 7:
+                    tipo = "Spray";
+                    break;
+                }
+              },
+              control: const SwiperControl(),
             ),
           ),
         ),
@@ -257,7 +255,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                         style: const TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 14,
-                          //color: Color(0xffffffff),
+                          color: Color(0xffffffff),
                         ),
                         underline: Container(
                           height: 0,
@@ -526,9 +524,10 @@ class _MyCustomFormState extends State<MyCustomForm> {
         quantidade != null &&
         frequencia != null &&
         tempo != "" &&
-        data != "") {
-      final medicamentoCriado =
-          Medicamento(nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF);
+        data != "" && 
+        tipo != "") {
+      final medicamentoCriado = Medicamento(
+          nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF, tipo);
       Navigator.pop(context, medicamentoCriado);
     }
   }

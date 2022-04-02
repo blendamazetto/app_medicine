@@ -14,7 +14,7 @@ class ListaMedicamentos extends StatefulWidget {
 
 class ListaMedicamentosState extends State<ListaMedicamentos> {
   final List<Medicamento> _medicamentos =
-      List.filled(0, Medicamento('a', 'a', 1.0, 1, 'a', 'a', 'a', 'a'), growable: true);
+      List.filled(0, Medicamento('a', 'a', 1.0, 1, 'a', 'a', 'a', 'a', 'a'), growable: true);
 
   onAddMedicamento() {
     final Future future =
@@ -101,7 +101,8 @@ class ItemMedicamento extends StatelessWidget {
                     TextSpan(text: '/${_medicamento.valueF.toString()}', style: const TextStyle(fontWeight: FontWeight.bold)),
                     const TextSpan(text: '\nHorário: ', style: TextStyle(fontWeight: FontWeight.bold)),
                     TextSpan(text: _medicamento.tempo.toString()),
-                    TextSpan(text: '\n${_medicamento.data.toString()}\n',),
+                    TextSpan(text: '\n${_medicamento.data.toString()}',),
+                    TextSpan(text: '\nTipo: ${_medicamento.tipo.toString()}\n'),
                   ]
                 )
               ),
