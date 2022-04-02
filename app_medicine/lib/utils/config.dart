@@ -36,6 +36,6 @@ List<String> images = [
   'assets/images/spray.png',
 ];
 
-int carouselIndex = 1;
-
+int indexTipo = -1;
 String tipo = "";
+
