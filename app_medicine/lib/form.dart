@@ -173,45 +173,40 @@ class _MyCustomFormState extends State<MyCustomForm> {
                       activeSize: 10.0)),
               duration: 500,
               onTap: (index) {
-                 switch(index){
-                    case 0:
-                      tipo = "Em pó";
-                      indexTipo = 0;
-                      break;
-                    case 1: 
-                      tipo = "Gotas";
-                      indexTipo = 1;
-                      break;
-                    case 2:
-                      tipo = "Injeção";
-                      indexTipo = 2;
-                      break;
-                    case 3:
-                      tipo = "Líquido";
-                      indexTipo = 3;
-                      break;
-                    case 4:
-                      tipo = "Pastilha";
-                      indexTipo = 4;
-                      break;
-                    case 5:
-                      tipo = "Pílula";
-                      indexTipo = 5;
-                      break;
-                    case 6:
-                      tipo = "Pomada";
-                      indexTipo = 6;
-                      break;
-                    case 7:
-                      tipo = "Spray";
-                      indexTipo = 7;
-                      break;
-                  };
-                  InkWell(onTap: () {
-                    
-                  },);
-      
-              
+                switch (index) {
+                  case 0:
+                    tipo = "Em pó";
+                    indexTipo = 0;
+                    break;
+                  case 1:
+                    tipo = "Gotas";
+                    indexTipo = 1;
+                    break;
+                  case 2:
+                    tipo = "Injeção";
+                    indexTipo = 2;
+                    break;
+                  case 3:
+                    tipo = "Líquido";
+                    indexTipo = 3;
+                    break;
+                  case 4:
+                    tipo = "Pastilha";
+                    indexTipo = 4;
+                    break;
+                  case 5:
+                    tipo = "Pílula";
+                    indexTipo = 5;
+                    break;
+                  case 6:
+                    tipo = "Pomada";
+                    indexTipo = 6;
+                    break;
+                  case 7:
+                    tipo = "Spray";
+                    indexTipo = 7;
+                    break;
+                }
               },
               control: const SwiperControl(),
             ),
@@ -536,11 +531,11 @@ class _MyCustomFormState extends State<MyCustomForm> {
         quantidade != null &&
         frequencia != null &&
         tempo != "" &&
-        data != "" && 
-        tipo != "" && 
+        data != "" &&
+        tipo != "" &&
         indexTipo != -1) {
-      final medicamentoCriado = Medicamento(
-          nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF, tipo);
+      final medicamentoCriado = Medicamento(nome, descricao, quantidade,
+          frequencia, tempo, data, valueQ, valueF, tipo);
       Navigator.pop(context, medicamentoCriado);
     }
   }
