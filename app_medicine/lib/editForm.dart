@@ -6,14 +6,14 @@ import 'utils/pallete.dart';
 import 'utils/config.dart';
 import 'data/medicamento.dart';
 
-class MyFormPage extends StatefulWidget {
-  const MyFormPage({Key? key}) : super(key: key);
+class MyEditPage extends StatefulWidget {
+  const MyEditPage({Key? key}) : super(key: key);
 
   @override
-  State<MyFormPage> createState() => _MyFormPageState();
+  State<MyEditPage> createState() => _MyEditPageState();
 }
 
-class _MyFormPageState extends State<MyFormPage> {
+class _MyEditPageState extends State<MyEditPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class _MyFormPageState extends State<MyFormPage> {
         title: RichText(
           textAlign: TextAlign.left,
           text: const TextSpan(
-            text: 'Adicionar Medicamento',
+            text: 'Editar Medicamento',
             style: TextStyle(
                 fontSize: 24,
                 fontFamily: 'Montserrat',
@@ -33,7 +33,7 @@ class _MyFormPageState extends State<MyFormPage> {
                 color: Colors.white),
             children: <TextSpan>[
               TextSpan(
-                text: '\nDefina as informações',
+                text: '\nMude as informações',
                 style: TextStyle(
                   fontSize: 14,
                 ),
@@ -71,7 +71,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
     nameinput.text = "";
     descinput.text = "";
     quantinput.text = "";
-    indexTipo = -1;
     super.initState();
   }
 
@@ -164,6 +163,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 );
               },
               itemCount: images.length,
+              index: indexTipo,
               pagination: const SwiperPagination(
                   margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
                   builder: DotSwiperPaginationBuilder(
@@ -176,35 +176,27 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 switch (index) {
                   case 0:
                     tipo = "Em pó";
-                    indexTipo = 0;
                     break;
                   case 1:
                     tipo = "Gotas";
-                    indexTipo = 1;
                     break;
                   case 2:
                     tipo = "Injeção";
-                    indexTipo = 2;
                     break;
                   case 3:
                     tipo = "Líquido";
-                    indexTipo = 3;
                     break;
                   case 4:
                     tipo = "Pastilha";
-                    indexTipo = 4;
                     break;
                   case 5:
                     tipo = "Pílula";
-                    indexTipo = 5;
                     break;
                   case 6:
                     tipo = "Pomada";
-                    indexTipo = 6;
                     break;
                   case 7:
                     tipo = "Spray";
-                    indexTipo = 7;
                     break;
                 }
               },
@@ -501,7 +493,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
             padding: const EdgeInsetsDirectional.only(
                 start: 10, top: 0, end: 10, bottom: 10),
             child: ElevatedButton(
-              child: const Text('Adicionar lembrete'),
+              child: const Text('Salvar lembrete'),
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
@@ -525,14 +517,39 @@ class _MyCustomFormState extends State<MyCustomForm> {
     final String data = dateinput.text;
     final String valueQ = dropdownValueQ;
     final String valueF = dropdownValueF;
-
+    switch (tipo) {
+      case "Em pó":
+        indexTipo = 0;
+        break;
+      case "Gotas":
+        indexTipo = 1;
+        break;
+      case "Injeção":
+        indexTipo = 2;
+        break;
+      case "Líquido":
+        indexTipo = 3;
+        break;
+      case "Pastilha":
+        indexTipo = 4;
+        break;
+      case "Pílula":
+        indexTipo = 5;
+        break;
+      case "Pomada":
+        indexTipo = 6;
+        break;
+      case "Spray":
+        indexTipo = 7;
+        break;
+    }
     if (nome != "" &&
         descricao != "" &&
         quantidade != null &&
         frequencia != null &&
         tempo != "" &&
         data != "" &&
-        tipo != "" &&
+        tipo != "" && 
         indexTipo != -1) {
       final medicamentoCriado = Medicamento(nome, descricao, quantidade,
           frequencia, tempo, data, valueQ, valueF, tipo);
@@ -540,3 +557,5 @@ class _MyCustomFormState extends State<MyCustomForm> {
     }
   }
 }
+
+//indexTipo vai ser utilizado para mostrar em qual item do carrossel tem que mostrar primeiro quando for editar o medicamento
