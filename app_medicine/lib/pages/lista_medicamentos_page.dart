@@ -1,8 +1,10 @@
 import 'package:cadastro_medicamento/utils/pallete.dart';
 import 'package:flutter/material.dart';
 import '../data/medicamento.dart';
+import '../data/medicamentos_db.dart';
 import '../form.dart';
 import '../editForm.dart';
+import 'dart:developer';
 
 class ListaMedicamentos extends StatefulWidget {
   const ListaMedicamentos({Key? key}) : super(key: key);
@@ -18,15 +20,40 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
       0, Medicamento('a', 'a', 1.0, 1, 'a', 'a', 'a', 'a', 'a'),
       growable: true);
 
+  late String nome;
+  late String descricao;
+  late double quantidade;
+  late int frequencia;
+  late String tempo;    
+  late String data;
+  late String valueQ;
+  late String valueF;
+  late String tipo;
+
   onAddMedicamento() {
     final Future future =
         Navigator.push(context, MaterialPageRoute(builder: (context) {
       return const MyFormPage();
     }));
 
-    future.then((medicamentoRecebido) {
+    future.then((medicamentoRecebido) async {
       if (medicamentoRecebido != null) {
         _medicamentos.add(medicamentoRecebido);
+
+        final medicamento = Medicamento(
+          medicamentoRecebido.nome.toString(),
+          medicamentoRecebido.descricao.toString(),
+          double.parse(medicamentoRecebido.quantidade.toString()),
+          int.parse(medicamentoRecebido.frequencia.toString()),
+          medicamentoRecebido.tempo.toString(),
+          medicamentoRecebido.data.toString(),
+          medicamentoRecebido.valueQ.toString(),
+          medicamentoRecebido.valueF.toString(),
+          medicamentoRecebido.tipo.toString(),
+        );
+
+        await MedicamentosDB.instance.inserirMedicamento(medicamento);
+
         setState(() {});
       }
     });
@@ -56,6 +83,7 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
       ),
     );
   }
+
 }
 
 class ItemMedicamento extends StatelessWidget {
