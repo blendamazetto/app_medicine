@@ -42,6 +42,7 @@ class MedicamentosDB {
 
   Future<void> inserirMedicamento(Medicamento medicamento) async {
     final db = await instance.database;
+
     await db.insert(
       'medicamentos',
       medicamento.toMap(),
@@ -49,13 +50,21 @@ class MedicamentosDB {
     );
   }
 
+  Future<int> deleteMedicamento(Medicamento medicamento) async {
+		var db = await instance.database;
+    String nome = medicamento.nome;
+    String descricao = medicamento.descricao;
+    String tempo = medicamento.tempo;
+    String data = medicamento.data;
+		int result = await db.rawDelete('DELETE FROM medicamentos WHERE nome = \'$nome\' AND descricao = \'$descricao\' AND tempo = \'$tempo\' AND data = \'$data\'');
+		return result;
+	}
+
   Future<List<Medicamento>> getMedicamentos() async {
-    // Get a reference to the database.
     final db = await instance.database;
-    // Query the table for all The Dogs.
+
     final List<Map<String, dynamic>> maps = await db.query('medicamentos');
 
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
     return List.generate(maps.length, (i) {
       return Medicamento(
         maps[i]['nome'],

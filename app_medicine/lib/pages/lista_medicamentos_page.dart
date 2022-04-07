@@ -41,7 +41,7 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
     
   }
 
-  onAddMedicamento() {
+  void onAddMedicamento() {
     final Future future =
         Navigator.push(context, MaterialPageRoute(builder: (context) {
       return const MyFormPage();
@@ -65,7 +65,7 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
         itemCount: _medicamentos.length,
         itemBuilder: (context, indice) {
           final medicamento = _medicamentos[indice];
-          return ItemMedicamento(medicamento);
+          return ItemMedicamento(medicamento, updateListView);
         },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -86,8 +86,18 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
 
 class ItemMedicamento extends StatelessWidget {
   final Medicamento _medicamento;
+  Function updateListView;
 
-  const ItemMedicamento(this._medicamento, {Key? key}) : super(key: key);
+  ItemMedicamento(this._medicamento, this.updateListView, {Key? key}) : super(key: key);
+
+  void _deleteMedicamento(Medicamento medicamento) async {
+    int result = await MedicamentosDB.instance.deleteMedicamento(medicamento);
+    if (result != 0) {
+      debugPrint('Medicamento deletado');
+      updateListView();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +170,9 @@ class ItemMedicamento extends StatelessWidget {
                           child: const Text('EDITAR',
                               style: TextStyle(color: Color(0xffef6f86)))),
                       ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _deleteMedicamento(_medicamento);
+                          },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
                                 Palette.blackToWhite[900]),
