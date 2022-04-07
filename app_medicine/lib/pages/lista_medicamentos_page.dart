@@ -16,7 +16,8 @@ class ListaMedicamentos extends StatefulWidget {
 }
 
 class ListaMedicamentosState extends State<ListaMedicamentos> {
-  final List<Medicamento> _medicamentos = List.filled(
+
+  List<Medicamento> _medicamentos = List.filled(
       0, Medicamento('a', 'a', 1.0, 1, 'a', 'a', 'a', 'a', 'a'),
       growable: true);
 
@@ -30,37 +31,34 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
   late String valueF;
   late String tipo;
 
+  void updateListView(){
+    Future<List<Medicamento>> futureList = MedicamentosDB.instance.getMedicamentos();
+    futureList.then((medicamentos) {
+      setState(() {
+        this._medicamentos = medicamentos;
+      });
+    });
+    
+  }
+
   onAddMedicamento() {
     final Future future =
         Navigator.push(context, MaterialPageRoute(builder: (context) {
       return const MyFormPage();
     }));
-
     future.then((medicamentoRecebido) async {
       if (medicamentoRecebido != null) {
-        _medicamentos.add(medicamentoRecebido);
 
-        final medicamento = Medicamento(
-          medicamentoRecebido.nome.toString(),
-          medicamentoRecebido.descricao.toString(),
-          double.parse(medicamentoRecebido.quantidade.toString()),
-          int.parse(medicamentoRecebido.frequencia.toString()),
-          medicamentoRecebido.tempo.toString(),
-          medicamentoRecebido.data.toString(),
-          medicamentoRecebido.valueQ.toString(),
-          medicamentoRecebido.valueF.toString(),
-          medicamentoRecebido.tipo.toString(),
-        );
+        await MedicamentosDB.instance.inserirMedicamento(medicamentoRecebido);
 
-        await MedicamentosDB.instance.inserirMedicamento(medicamento);
-
-        setState(() {});
+        setState(() {updateListView();});
       }
-    });
+    });  
   }
 
   @override
   Widget build(BuildContext context) {
+    updateListView();
     return Scaffold(
       backgroundColor: Palette.blackToWhite[800],
       body: ListView.builder(

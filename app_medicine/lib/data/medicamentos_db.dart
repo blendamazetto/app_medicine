@@ -49,6 +49,28 @@ class MedicamentosDB {
     );
   }
 
+  Future<List<Medicamento>> getMedicamentos() async {
+    // Get a reference to the database.
+    final db = await instance.database;
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query('medicamentos');
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.generate(maps.length, (i) {
+      return Medicamento(
+        maps[i]['nome'],
+        maps[i]['descricao'],
+        maps[i]['quantidade'],
+        maps[i]['frequencia'],
+        maps[i]['tempo'],
+        maps[i]['data'],
+        maps[i]['valueQ'],
+        maps[i]['valueF'],
+        maps[i]['tipo'],
+      );
+    });
+  }
+
   Future close() async {
     final db = await instance.database;
 
