@@ -60,6 +60,26 @@ class MedicamentosDB {
 		return result;
 	}
 
+  Future<int> updateMedicamento(Medicamento novoMedicamento, Medicamento medicamento) async {
+		var db = await instance.database;
+
+		int result = await db.rawUpdate('''UPDATE medicamentos
+    SET nome = \'${novoMedicamento.nome}\',
+    descricao = \'${novoMedicamento.descricao}\',
+    quantidade = ${novoMedicamento.quantidade},
+    frequencia = ${novoMedicamento.frequencia},
+    tempo = \'${novoMedicamento.tempo}\', 
+    data = \'${novoMedicamento.data}\',
+    valueQ = \'${novoMedicamento.valueQ}\',
+    valueF = \'${novoMedicamento.valueF}\',
+    tipo = \'${novoMedicamento.tipo}\' 
+    WHERE nome = \'${medicamento.nome}\' AND
+    descricao = \'${medicamento.descricao}\' AND
+    tempo = \'${medicamento. tempo }\' AND
+    data = \'${medicamento.data}\' ''');
+		return result;
+	}
+
   Future<List<Medicamento>> getMedicamentos() async {
     final db = await instance.database;
 

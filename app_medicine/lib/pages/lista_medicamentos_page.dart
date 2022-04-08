@@ -84,20 +84,43 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
 
 }
 
-class ItemMedicamento extends StatelessWidget {
+class ItemMedicamento extends StatefulWidget {
   final Medicamento _medicamento;
   Function updateListView;
 
   ItemMedicamento(this._medicamento, this.updateListView, {Key? key}) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => ItemMedicamentoState();
+}
+
+class ItemMedicamentoState extends State<ItemMedicamento> {
+  
+
   void _deleteMedicamento(Medicamento medicamento) async {
     int result = await MedicamentosDB.instance.deleteMedicamento(medicamento);
     if (result != 0) {
       debugPrint('Medicamento deletado');
-      updateListView();
+      widget.updateListView();
     }
   }
 
+  void onUpdateMedicamento(Medicamento medicamento) {
+    final Future future =
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return MyEditPage(medicamento);
+    }));
+    future.then((medicamentoRecebido) async {
+      if (medicamentoRecebido != null) {
+
+        int result = await MedicamentosDB.instance.updateMedicamento(medicamentoRecebido, medicamento);
+        if (result != 0) {
+          debugPrint('Medicamento atualizado');
+          widget.updateListView();
+        }
+      }
+    });  
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +133,7 @@ class ItemMedicamento extends StatelessWidget {
           child: ListTile(
             contentPadding:
                 const EdgeInsets.only(left: 30, top: 30, right: 30, bottom: 3),
-            title: Text(_medicamento.nome.toString(),
+            title: Text(widget._medicamento.nome.toString(),
                 style: TextStyle(
                     fontSize: 22,
                     fontFamily: 'Montserrat',
@@ -126,28 +149,28 @@ class ItemMedicamento extends StatelessWidget {
                             fontFamily: 'Montserrat',
                             color: Colors.white),
                         children: <TextSpan>[
-                      TextSpan(text: _medicamento.descricao.toString()),
+                      TextSpan(text: widget._medicamento.descricao.toString()),
                       TextSpan(
-                          text: '\n${_medicamento.quantidade.toString()} '),
+                          text: '\n${widget._medicamento.quantidade.toString()} '),
                       TextSpan(
-                          text: _medicamento.valueQ.toString(),
+                          text: widget._medicamento.valueQ.toString(),
                           style: const TextStyle(
                               fontWeight: FontWeight.bold, fontSize: 17)),
                       TextSpan(
                           text:
-                              '\n${_medicamento.frequencia.toString()} vez(es)'),
+                              '\n${widget._medicamento.frequencia.toString()} vez(es)'),
                       TextSpan(
-                          text: '/${_medicamento.valueF.toString()}',
+                          text: '/${widget._medicamento.valueF.toString()}',
                           style: const TextStyle(fontWeight: FontWeight.bold)),
                       const TextSpan(
                           text: '\nHorário: ',
                           style: TextStyle(fontWeight: FontWeight.bold)),
-                      TextSpan(text: _medicamento.tempo.toString()),
+                      TextSpan(text: widget._medicamento.tempo.toString()),
                       TextSpan(
-                        text: '\n${_medicamento.data.toString()}',
+                        text: '\n${widget._medicamento.data.toString()}',
                       ),
                       TextSpan(
-                          text: '\nTipo: ${_medicamento.tipo.toString()}\n'),
+                          text: '\nTipo: ${widget._medicamento.tipo.toString()}\n'),
                     ])),
                 Container(
                   alignment: Alignment.bottomCenter,
@@ -158,10 +181,7 @@ class ItemMedicamento extends StatelessWidget {
                     children: <Widget>[
                       ElevatedButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const MyEditPage()));
+                            onUpdateMedicamento(widget._medicamento);
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
@@ -171,7 +191,7 @@ class ItemMedicamento extends StatelessWidget {
                               style: TextStyle(color: Color(0xffef6f86)))),
                       ElevatedButton(
                           onPressed: () {
-                            _deleteMedicamento(_medicamento);
+                            _deleteMedicamento(widget._medicamento);
                           },
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all(
