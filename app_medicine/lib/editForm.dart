@@ -7,7 +7,9 @@ import 'utils/config.dart';
 import 'data/medicamento.dart';
 
 class MyEditPage extends StatefulWidget {
-  const MyEditPage({Key? key}) : super(key: key);
+  Medicamento _medicamento;
+
+  MyEditPage(this._medicamento, {Key? key}) : super(key: key);
 
   @override
   State<MyEditPage> createState() => _MyEditPageState();
@@ -43,13 +45,14 @@ class _MyEditPageState extends State<MyEditPage> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body: const MyCustomForm(),
+      body: MyCustomForm(widget._medicamento),
     );
   }
 }
 
 class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({Key? key}) : super(key: key);
+  Medicamento _medicamento;
+  MyCustomForm(this._medicamento, {Key? key}) : super(key: key);
 
   @override
   State<MyCustomForm> createState() => _MyCustomFormState();
@@ -65,12 +68,12 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   @override
   void initState() {
-    timeinput.text = "";
-    dateinput.text = "";
-    frequencyinput.text = "";
-    nameinput.text = "";
-    descinput.text = "";
-    quantinput.text = "";
+    timeinput.text = widget._medicamento.tempo;
+    dateinput.text = widget._medicamento.data;
+    frequencyinput.text = widget._medicamento.frequencia.toString();
+    nameinput.text = widget._medicamento.nome;
+    descinput.text = widget._medicamento.descricao;
+    quantinput.text = widget._medicamento.quantidade.toString();
     super.initState();
   }
 
