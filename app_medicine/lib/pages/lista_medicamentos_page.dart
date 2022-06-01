@@ -4,7 +4,6 @@ import '../data/medicamento.dart';
 import '../data/medicamentos_db.dart';
 import '../form.dart';
 import '../editForm.dart';
-import 'dart:developer';
 
 class ListaMedicamentos extends StatefulWidget {
   const ListaMedicamentos({Key? key}) : super(key: key);
@@ -16,7 +15,6 @@ class ListaMedicamentos extends StatefulWidget {
 }
 
 class ListaMedicamentosState extends State<ListaMedicamentos> {
-
   List<Medicamento> _medicamentos = List.filled(
       0, Medicamento('a', 'a', 1.0, 1, 'a', 'a', 'a', 'a', 'a'),
       growable: true);
@@ -25,20 +23,20 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
   late String descricao;
   late double quantidade;
   late int frequencia;
-  late String tempo;    
+  late String tempo;
   late String data;
   late String valueQ;
   late String valueF;
   late String tipo;
 
-  void updateListView(){
-    Future<List<Medicamento>> futureList = MedicamentosDB.instance.getMedicamentos();
+  void updateListView() {
+    Future<List<Medicamento>> futureList =
+        MedicamentosDB.instance.getMedicamentos();
     futureList.then((medicamentos) {
       setState(() {
-        this._medicamentos = medicamentos;
+        _medicamentos = medicamentos;
       });
     });
-    
   }
 
   void onAddMedicamento() {
@@ -48,12 +46,13 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
     }));
     future.then((medicamentoRecebido) async {
       if (medicamentoRecebido != null) {
-
         await MedicamentosDB.instance.inserirMedicamento(medicamentoRecebido);
 
-        setState(() {updateListView();});
+        setState(() {
+          updateListView();
+        });
       }
-    });  
+    });
   }
 
   @override
@@ -81,22 +80,20 @@ class ListaMedicamentosState extends State<ListaMedicamentos> {
       ),
     );
   }
-
 }
 
 class ItemMedicamento extends StatefulWidget {
   final Medicamento _medicamento;
-  Function updateListView;
+  final Function updateListView;
 
-  ItemMedicamento(this._medicamento, this.updateListView, {Key? key}) : super(key: key);
+  const ItemMedicamento(this._medicamento, this.updateListView, {Key? key})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => ItemMedicamentoState();
 }
 
 class ItemMedicamentoState extends State<ItemMedicamento> {
-  
-
   void _deleteMedicamento(Medicamento medicamento) async {
     int result = await MedicamentosDB.instance.deleteMedicamento(medicamento);
     if (result != 0) {
@@ -112,14 +109,14 @@ class ItemMedicamentoState extends State<ItemMedicamento> {
     }));
     future.then((medicamentoRecebido) async {
       if (medicamentoRecebido != null) {
-
-        int result = await MedicamentosDB.instance.updateMedicamento(medicamentoRecebido, medicamento);
+        int result = await MedicamentosDB.instance
+            .updateMedicamento(medicamentoRecebido, medicamento);
         if (result != 0) {
           debugPrint('Medicamento atualizado');
           widget.updateListView();
         }
       }
-    });  
+    });
   }
 
   @override
@@ -151,7 +148,8 @@ class ItemMedicamentoState extends State<ItemMedicamento> {
                         children: <TextSpan>[
                       TextSpan(text: widget._medicamento.descricao.toString()),
                       TextSpan(
-                          text: '\n${widget._medicamento.quantidade.toString()} '),
+                          text:
+                              '\n${widget._medicamento.quantidade.toString()} '),
                       TextSpan(
                           text: widget._medicamento.valueQ.toString(),
                           style: const TextStyle(
@@ -170,7 +168,8 @@ class ItemMedicamentoState extends State<ItemMedicamento> {
                         text: '\n${widget._medicamento.data.toString()}',
                       ),
                       TextSpan(
-                          text: '\nTipo: ${widget._medicamento.tipo.toString()}\n'),
+                          text:
+                              '\nTipo: ${widget._medicamento.tipo.toString()}\n'),
                     ])),
                 Container(
                   alignment: Alignment.bottomCenter,

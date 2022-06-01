@@ -21,13 +21,13 @@ class _MyFormPageState extends State<MyFormPage> {
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Palette.pinkToWhite,
         ),
-        toolbarHeight: 110,
+        toolbarHeight: 100,
         title: RichText(
           textAlign: TextAlign.left,
           text: const TextSpan(
             text: 'Adicionar Medicamento',
             style: TextStyle(
-                fontSize: 24,
+                fontSize: 22,
                 fontFamily: 'Montserrat',
                 height: 1.5,
                 color: Colors.white),
@@ -80,16 +80,19 @@ class _MyCustomFormState extends State<MyCustomForm> {
     return ListView(
       children: <Widget>[
         //MEDICINE NAME FIELD
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 38),
+        Container(
+          padding:
+              const EdgeInsets.only(top: 30, bottom: 30, left: 15, right: 15),
+          height: 110,
           child: TextField(
             controller: nameinput,
+            style: const TextStyle(fontSize: 12),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
                 borderSide: BorderSide.none,
               ),
-              hintStyle: TextStyle(fontSize: 14),
+              hintStyle: TextStyle(fontSize: 12),
               hintText: 'Insira o nome do medicamento',
               labelStyle: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -106,20 +109,21 @@ class _MyCustomFormState extends State<MyCustomForm> {
         ),
 
         //MEDICINE DESCRIPTION FIELD
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+        Container(
+          padding: const EdgeInsets.only(left: 15, right: 15),
           child: TextField(
             controller: descinput,
             textAlignVertical: TextAlignVertical.top,
             keyboardType: TextInputType.multiline,
-            maxLines: 3,
-            maxLength: 300,
+            maxLines: 2,
+            maxLength: 150,
+            style: const TextStyle(fontSize: 12),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                borderRadius: BorderRadius.all(Radius.circular(30)),
                 borderSide: BorderSide.none,
               ),
-              hintStyle: TextStyle(fontSize: 14),
+              hintStyle: TextStyle(fontSize: 12),
               hintText: 'Insira a descrição do medicamento',
               labelStyle: TextStyle(
                 fontWeight: FontWeight.bold,
@@ -140,7 +144,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
         Align(
           alignment: Alignment.centerLeft,
           child: Container(
-            margin: const EdgeInsets.only(left: 30, right: 20.0),
+            margin: const EdgeInsets.only(left: 28),
             child: const Text(
               'Tipo do Medicamento',
               style: TextStyle(
@@ -153,9 +157,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
         ),
         Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          margin: const EdgeInsets.symmetric(horizontal: 20),
           child: SizedBox(
-            height: 130.0,
+            height: 110.0,
             width: double.maxFinite,
             child: Swiper(
               itemBuilder: (BuildContext context, int index) {
@@ -165,7 +169,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
               },
               itemCount: images.length,
               pagination: const SwiperPagination(
-                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 5.0),
+                  margin: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 2.0),
                   builder: DotSwiperPaginationBuilder(
                       color: Color(0xffe6e6e6),
                       activeColor: Color(0xffef6f86),
@@ -215,7 +219,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
         //QUANTITY FIELD + DROPDOWN BUTTON
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 35),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -226,13 +230,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
                       controller: quantinput,
                       keyboardType: TextInputType.number,
                       maxLength: 4,
+                      style: const TextStyle(fontSize: 12),
                       decoration: const InputDecoration(
                         counterText: "",
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
                           borderSide: BorderSide.none,
                         ),
-                        hintStyle: TextStyle(fontSize: 14),
+                        hintStyle: TextStyle(fontSize: 12),
                         hintText: 'Insira a quantidade',
                         labelStyle: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -240,8 +245,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                           //color: Color(0xff666666)
                         ),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        contentPadding: EdgeInsetsDirectional.only(
-                            bottom: 10, start: 10, top: 0, end: 0),
+                        contentPadding: EdgeInsetsDirectional.only(start: 10),
                         labelText: 'Quantidade\n\n',
                         alignLabelWithHint: false,
                         fillColor: Color(0xffe6e6e6),
@@ -252,23 +256,22 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 ),
                 Expanded(
                   child: Padding(
-                    padding: const EdgeInsetsDirectional.only(
-                        bottom: 10, start: 10, top: 0, end: 0),
+                    padding: const EdgeInsetsDirectional.only(start: 10),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           color: const Color(0xffef6f86),
-                          borderRadius: BorderRadius.circular(20)),
+                          borderRadius: BorderRadius.circular(30)),
                       child: DropdownButton(
                         style: const TextStyle(
                           fontFamily: 'Montserrat',
-                          fontSize: 14,
+                          fontSize: 12,
                           color: Color(0xffffffff),
                         ),
                         underline: Container(
                           height: 0,
                         ),
                         dropdownColor: Palette.pinkToWhite,
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(30),
                         isExpanded: true,
                         value: dropdownValueQ,
                         icon: const Icon(Icons.keyboard_arrow_down),
@@ -295,7 +298,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
         //FREQUENCY FIELD + DROPDOWN BUTTON
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: IntrinsicHeight(
               child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -309,10 +312,11 @@ class _MyCustomFormState extends State<MyCustomForm> {
                       FilteringTextInputFormatter.digitsOnly,
                     ],
                     maxLength: 2,
+                    style: const TextStyle(fontSize: 12),
                     decoration: const InputDecoration(
                       counterText: "",
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(30)),
                         borderSide: BorderSide.none,
                       ),
                       labelStyle: TextStyle(
@@ -322,10 +326,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       labelText: 'Frequência\n\n',
-                      hintStyle: TextStyle(fontSize: 14),
+                      hintStyle: TextStyle(fontSize: 12),
                       hintText: 'Insira a frequência',
-                      contentPadding: EdgeInsetsDirectional.only(
-                          bottom: 10, start: 10, top: 0, end: 0),
+                      contentPadding: EdgeInsetsDirectional.only(start: 10),
                       alignLabelWithHint: false,
                       fillColor: Color(0xffe6e6e6),
                       filled: true,
@@ -333,25 +336,18 @@ class _MyCustomFormState extends State<MyCustomForm> {
                   ),
                 ]),
               ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                  margin: const EdgeInsets.only(left: 5, right: 10),
-                  child: const Text(
-                    'vezes',
-                    style: TextStyle(color: Color(0xff666666), fontSize: 14),
-                  ),
-                ),
-              ),
               Expanded(
+                  child: Padding(
+                padding:
+                    const EdgeInsetsDirectional.only(bottom: 10, start: 10),
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                       color: const Color(0xffef6f86),
-                      borderRadius: BorderRadius.circular(20)),
+                      borderRadius: BorderRadius.circular(30)),
                   child: DropdownButton(
                     style: const TextStyle(
                       fontFamily: 'Montserrat',
-                      fontSize: 14,
+                      fontSize: 12,
                       color: Color(0xffffffff),
                     ),
                     underline: Container(
@@ -362,7 +358,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     value: dropdownValueF,
                     icon: const Icon(Icons.keyboard_arrow_down),
                     iconEnabledColor: const Color(0xffffffff),
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(30),
                     items: itemsF.map((String itemsF) {
                       return DropdownMenuItem(
                         value: itemsF,
@@ -376,14 +372,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
                     },
                   ),
                 ),
-              ),
+              )),
             ],
           )),
         ),
 
         //TIME AND DATE FIELDS
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: IntrinsicHeight(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -392,11 +388,12 @@ class _MyCustomFormState extends State<MyCustomForm> {
                   child: Column(children: [
                     TextField(
                       controller: timeinput,
+                      style: const TextStyle(fontSize: 12),
                       decoration: const InputDecoration(
                         labelText: "Horário\n\n",
                         counterText: "",
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                          borderRadius: BorderRadius.all(Radius.circular(30)),
                           borderSide: BorderSide.none,
                         ),
                         labelStyle: TextStyle(
@@ -405,10 +402,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
                           //color: Color(0xff666666),
                         ),
                         floatingLabelBehavior: FloatingLabelBehavior.always,
-                        hintStyle: TextStyle(fontSize: 14),
+                        hintStyle: TextStyle(fontSize: 12),
                         hintText: 'Insira o horário',
-                        contentPadding: EdgeInsetsDirectional.only(
-                            bottom: 10, start: 10, top: 0, end: 0),
+                        contentPadding: EdgeInsetsDirectional.only(start: 10),
                         alignLabelWithHint: false,
                         fillColor: Color(0xffe6e6e6),
                         filled: true,
@@ -442,15 +438,16 @@ class _MyCustomFormState extends State<MyCustomForm> {
                 ),
                 Expanded(
                   child: Padding(
-                      padding: const EdgeInsetsDirectional.only(
-                          bottom: 10, start: 10, top: 0, end: 0),
+                      padding: const EdgeInsetsDirectional.only(start: 10),
                       child: TextField(
-                        controller:
-                            dateinput, //editing controller of this TextField
+                        controller: dateinput,
+                        style: const TextStyle(
+                            fontSize:
+                                12), //editing controller of this TextField
                         decoration: const InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                                  BorderRadius.all(Radius.circular(30)),
                               borderSide: BorderSide.none,
                             ),
                             labelStyle: TextStyle(
@@ -459,14 +456,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
                               //color: Color(0xff666666),
                             ),
                             floatingLabelBehavior: FloatingLabelBehavior.always,
-                            hintStyle: TextStyle(fontSize: 14),
+                            hintStyle: TextStyle(fontSize: 12),
                             hintText: 'Insira a data',
-                            contentPadding: EdgeInsetsDirectional.only(
-                                bottom: 10, start: 10, top: 0, end: 0),
+                            contentPadding:
+                                EdgeInsetsDirectional.only(start: 10),
                             alignLabelWithHint: false,
                             fillColor: Color(0xffe6e6e6),
                             filled: true,
-                            labelText: "Data\n\n"),
+                            labelText: "Data final\n\n"),
                         readOnly:
                             true, //set it true, so that user will not able to edit text
                         onTap: () async {
@@ -498,16 +495,14 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
         //BUTTON ADD MEDICINE
         Padding(
-            padding: const EdgeInsetsDirectional.only(
-                start: 10, top: 0, end: 10, bottom: 10),
+            padding: const EdgeInsets.only(top: 9),
             child: ElevatedButton(
-              child: const Text('Adicionar lembrete'),
+              child: const Text('Salvar novo lembrete'),
               style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero),
                   primary: const Color(0xffef6f86),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   textStyle:
                       const TextStyle(fontSize: 18, fontFamily: 'Montserrat')),
               onPressed: () => criaMedicamento(context),

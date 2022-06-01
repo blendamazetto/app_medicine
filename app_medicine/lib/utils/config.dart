@@ -1,7 +1,7 @@
 String dropdownValueQ = 'Colher(es) chá';
 var itemsQ = [
   'Colher(es) chá',
-  'Colher(es) sobremesa',
+  'Colher(es)\nsobremesa',
   'Colher(es) sopa',
   'Grama(s) - g',
   'Gota(s)',
@@ -38,4 +38,3 @@ List<String> images = [
 
 int indexTipo = -1;
 String tipo = "";
-

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'utils/pallete.dart';
 import 'pages/lista_medicamentos_page.dart';
-import 'data/medicamentos_db.dart';
 import 'package:bottom_bar/bottom_bar.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
