@@ -21,8 +21,8 @@ class _MyEditPageState extends State<MyEditPage> {
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle(
-          statusBarColor: Palette.pinkToWhite,
-        ),
+            statusBarColor: Palette.pinkToWhite,
+            statusBarIconBrightness: Brightness.light),
         toolbarHeight: 100,
         title: RichText(
           textAlign: TextAlign.left,

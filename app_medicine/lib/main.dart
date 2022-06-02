@@ -1,3 +1,4 @@
+import 'package:cadastro_medicamento/pages/estatisticas_page.dart';
 import 'package:flutter/material.dart';
 import 'utils/pallete.dart';
 import 'pages/lista_medicamentos_page.dart';
@@ -46,7 +47,7 @@ class MyNavigationState extends State<MyNavigation> {
   final _pages = [
     Container(color: Colors.blue),
     const ListaMedicamentos(),
-    Container(color: Colors.red),
+    const AlarmScreen(),
     Container(color: Colors.greenAccent.shade700),
   ];
 
@@ -63,6 +64,7 @@ class MyNavigationState extends State<MyNavigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomBar(
+        backgroundColor: Colors.white,
         selectedIndex: _currentIndex,
         items: <BottomBarItem>[
           BottomBarItem(
