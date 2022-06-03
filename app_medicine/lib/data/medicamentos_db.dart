@@ -43,42 +43,41 @@ class MedicamentosDB {
   Future<void> inserirMedicamento(Medicamento medicamento) async {
     final db = await instance.database;
 
-    await db.insert(
-      'medicamentos',
-      medicamento.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace
-    );
+    await db.insert('medicamentos', medicamento.toMap(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<int> deleteMedicamento(Medicamento medicamento) async {
-		var db = await instance.database;
+    var db = await instance.database;
     String nome = medicamento.nome;
     String descricao = medicamento.descricao;
     String tempo = medicamento.tempo;
     String data = medicamento.data;
-		int result = await db.rawDelete('DELETE FROM medicamentos WHERE nome = \'$nome\' AND descricao = \'$descricao\' AND tempo = \'$tempo\' AND data = \'$data\'');
-		return result;
-	}
+    int result = await db.rawDelete(
+        'DELETE FROM medicamentos WHERE nome = \'$nome\' AND descricao = \'$descricao\' AND tempo = \'$tempo\' AND data = \'$data\'');
+    return result;
+  }
 
-  Future<int> updateMedicamento(Medicamento novoMedicamento, Medicamento medicamento) async {
-		var db = await instance.database;
+  Future<int> updateMedicamento(
+      Medicamento novoMedicamento, Medicamento medicamento) async {
+    var db = await instance.database;
 
-		int result = await db.rawUpdate('''UPDATE medicamentos
-    SET nome = \'${novoMedicamento.nome}\',
-    descricao = \'${novoMedicamento.descricao}\',
+    int result = await db.rawUpdate('''UPDATE medicamentos
+    SET nome = '${novoMedicamento.nome}',
+    descricao = '${novoMedicamento.descricao}',
     quantidade = ${novoMedicamento.quantidade},
     frequencia = ${novoMedicamento.frequencia},
-    tempo = \'${novoMedicamento.tempo}\', 
-    data = \'${novoMedicamento.data}\',
-    valueQ = \'${novoMedicamento.valueQ}\',
-    valueF = \'${novoMedicamento.valueF}\',
-    tipo = \'${novoMedicamento.tipo}\' 
-    WHERE nome = \'${medicamento.nome}\' AND
-    descricao = \'${medicamento.descricao}\' AND
-    tempo = \'${medicamento. tempo }\' AND
-    data = \'${medicamento.data}\' ''');
-		return result;
-	}
+    tempo = '${novoMedicamento.tempo}', 
+    data = '${novoMedicamento.data}',
+    valueQ = '${novoMedicamento.valueQ}',
+    valueF = '${novoMedicamento.valueF}',
+    tipo = '${novoMedicamento.tipo}' 
+    WHERE nome = '${medicamento.nome}' AND
+    descricao = '${medicamento.descricao}' AND
+    tempo = '${medicamento.tempo}' AND
+    data = '${medicamento.data}' ''');
+    return result;
+  }
 
   Future<List<Medicamento>> getMedicamentos() async {
     final db = await instance.database;

@@ -1,6 +1,15 @@
 class CamposMedicamento {
   static final List<String> values = [
-    id, nome, descricao, quantidade, frequencia, tempo, data, valueQ, valueF, tipo
+    id,
+    nome,
+    descricao,
+    quantidade,
+    frequencia,
+    tempo,
+    data,
+    valueQ,
+    valueF,
+    tipo
   ];
 
   static const String id = '_id';
@@ -28,20 +37,21 @@ class Medicamento {
   final String tipo;
 
   Medicamento(this.nome, this.descricao, this.quantidade, this.frequencia,
-      this.tempo, this.data, this.valueQ, this.valueF, this.tipo, [this.id]);
+      this.tempo, this.data, this.valueQ, this.valueF, this.tipo,
+      [this.id]);
 
   Map<String, dynamic> toMap() {
     return {
-      'id'         : id,
-      'nome'       : nome,
-      'descricao'  : descricao,
-      'quantidade' : quantidade,
-      'frequencia' : frequencia,
-      'tempo'      : tempo,
-      'data'       : data,
-      'valueQ'     : valueQ,
-      'valueF'     : valueF,
-      'tipo'       : tipo
+      'id': id,
+      'nome': nome,
+      'descricao': descricao,
+      'quantidade': quantidade,
+      'frequencia': frequencia,
+      'tempo': tempo,
+      'data': data,
+      'valueQ': valueQ,
+      'valueF': valueF,
+      'tipo': tipo
     };
   }
 
